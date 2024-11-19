@@ -12,7 +12,6 @@
 from tkinter import *
 import MCPizzeriaSQL
 
-
 ### ---------  Functie definities  -----------------
 
 
@@ -22,8 +21,14 @@ venster = Tk()
 venster.iconbitmap("MC_icon.ico") #Let op: Dit werkt niet op een MAC! Zet deze regel dan in commentaar
 venster.wm_title("MC Pizzeria")
 
+#sql functies
+#Voeg Pizzas Toe
+MCPizzeriaSQL.voegPizzaToe("Magarita", 9.50)
+MCPizzeriaSQL.voegPizzaToe("Hawaii", 12.25)
+MCPizzeriaSQL.voegPizzaToe("Salami", 10.00)
 
-
+#Verwijder Pizzas
+MCPizzeriaSQL.verwijderPizza("Hawaii")
 
 
 
