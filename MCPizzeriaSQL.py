@@ -16,12 +16,20 @@ with sqlite3.connect("MCPizzeria.db") as db:
 
 ### ---------  Functie definities  -----------------
 def maakTabellenAan():
+    #dit maakt het pizza tabel aan
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS tbl_pizzas(
         gerechtID INTEGER PRIMARY KEY AUTOINCREMENT,
-        gerechtNaame TEXT NOT NULL,
+        gerechtNaam TEXT NOT NULL,
         gerechtPrijs REAL NOT NULL);""")
     print("Tabel aangemaakt 'tbl_pizzas' aangemaakt")
+    
+    #dit maakt het klanten tabel aan
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS tbl_klanten(
+        klantNr INTEGER PRIMARY KEY AUTOINCREMENT,
+        klantAchternaam TEXT);""")
+    print("Tabel 'tbl_klanten' aangemaakt.")
 
 def printTabel(tabel_naam):
     cursor.execute("SELECT * FROM " + tabel_naam)
@@ -40,6 +48,18 @@ def verwijderPizza(gerechtNaam):
     db.commit() #gegevens naar de database wegschrijven
     printTabel("tbl_pizzas")
 
+def pasGerechtAan(gerechtID, nieuweGerechtNaam, nieuwePrijs):
+    cursor.execute("UPDATE tbl_pizzas SET gerechtNaam = ?, gerechtPrijs = ? WHERE gerechtID = ?", (nieuweGerechtNaam, 
+    nieuwePrijs, gerechtID ))
+    db.commit() #gegevens naar de database wegschrijven
+    print("Gerecht aangepast")
+    printTabel("tbl_pizzas")
+
+def voegKlantToe(naam_nieuwe_klant):
+    cursor.execute("INSERT INTO tbl_klanten VALUES(NULL, ?)", (naam_nieuwe_klant,))
+    db.commit()
+    print("Klant toegevoegd:")
+    printTabel("tbl_klanten")
 
 ### --------- Hoofdprogramma  ---------------
 maakTabellenAan()
